@@ -6,8 +6,8 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Service.Services
 {
     public interface ICustomerService
     {
-        List<Customer> GetAllCustomer();
-        Task<Customer> GetCustomerById(int id);
-        Task<Customer> AddCustomer(Customer newCustomer);
+        Task<List<Customer>> GetAllCustomersAsync();
+        Task<Customer> GetCustomerByIdAsync(int id);
+        Task<Customer> AddCustomerAsync(Customer newCustomer);
     }
 }

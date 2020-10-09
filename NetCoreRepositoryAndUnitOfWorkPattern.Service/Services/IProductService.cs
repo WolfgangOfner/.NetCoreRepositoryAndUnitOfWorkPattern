@@ -5,7 +5,8 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Service.Services
 {
     public interface IProductService
     {
-        Product GetMySpecialProduct();
-        Task<Product> GetProductById(int id);
+        Task<Product> AddProductAsync(Product product);
+
+        Task<Product> GetProductByIdAsync(int id);
     }
 }

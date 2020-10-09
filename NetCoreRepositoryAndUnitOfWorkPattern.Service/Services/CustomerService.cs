@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using NetCoreRepositoryAndUnitOfWorkPattern.Data.Models;
 using NetCoreRepositoryAndUnitOfWorkPattern.Data.Repositories;
 
@@ -9,24 +7,24 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Service.Services
 {
     public class CustomerService : ICustomerService
     {
-        private readonly IRepository<Customer> _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomerService(IRepository<Customer> customerRepository)
+        public CustomerService(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
         }
 
-        public List<Customer> GetAllCustomer()
+        public async Task<List<Customer>> GetAllCustomersAsync()
         {
-            return _customerRepository.GetAll().ToList();
+            return await _customerRepository.GetAllCustomersAsync();
         }
 
-        public async Task<Customer> GetCustomerById(int id)
+        public async Task<Customer> GetCustomerByIdAsync(int id)
         {
-            return await _customerRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+            return await _customerRepository.GetCustomerByIdAsync(id);
         }
 
-        public async Task<Customer> AddCustomer(Customer newCustomer)
+        public async Task<Customer> AddCustomerAsync(Customer newCustomer)
         {
             return await _customerRepository.AddAsync(newCustomer);
         }

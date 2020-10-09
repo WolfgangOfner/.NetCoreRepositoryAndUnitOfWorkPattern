@@ -7,22 +7,22 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Data.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
-        private readonly RepositoryPatternDemoContext _repositoryPatternDemoContextContext;
+        protected readonly RepositoryPatternDemoContext RepositoryPatternDemoContext;
 
-        public Repository(RepositoryPatternDemoContext repositoryPatternDemoContextContext)
+        public Repository(RepositoryPatternDemoContext repositoryPatternDemoContext)
         {
-            _repositoryPatternDemoContextContext = repositoryPatternDemoContextContext;
+            RepositoryPatternDemoContext = repositoryPatternDemoContext;
         }
 
         public IQueryable<TEntity> GetAll()
         {
             try
             {
-                return _repositoryPatternDemoContextContext.Set<TEntity>();
+                return RepositoryPatternDemoContext.Set<TEntity>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Couldn't retrieve entities");
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
             }
         }
 
@@ -35,14 +35,14 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Data.Repositories
 
             try
             {
-                await _repositoryPatternDemoContextContext.AddAsync(entity);
-                await _repositoryPatternDemoContextContext.SaveChangesAsync();
+                await RepositoryPatternDemoContext.AddAsync(entity);
+                await RepositoryPatternDemoContext.SaveChangesAsync();
 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception($"{nameof(entity)} could not be saved");
+                throw new Exception($"{nameof(entity)} could not be saved: {ex.Message}");
             }
         }
 
@@ -55,14 +55,14 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Data.Repositories
 
             try
             {
-                _repositoryPatternDemoContextContext.Update(entity);
-                await _repositoryPatternDemoContextContext.SaveChangesAsync();
+                RepositoryPatternDemoContext.Update(entity);
+                await RepositoryPatternDemoContext.SaveChangesAsync();
 
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception($"{nameof(entity)} could not be updated");
+                throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
             }
         }
     }

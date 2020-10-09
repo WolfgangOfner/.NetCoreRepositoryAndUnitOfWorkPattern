@@ -5,7 +5,7 @@ using NetCoreRepositoryAndUnitOfWorkPattern.Service.Services;
 
 namespace NetCoreRepositoryAndUnitOfWorkPattern.Controllers
 {
-    public class ProductController
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
 
@@ -16,12 +16,19 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Controllers
 
         public async Task<ActionResult<Product>> GetProductById()
         {
-            return await _productService.GetProductById(1);
+            return await _productService.GetProductByIdAsync(1);
         }
 
-        public ActionResult<Product> GetSpecialProduct()
+        public async Task<ActionResult<Product>> CreateProduct()
         {
-            return _productService.GetMySpecialProduct();
+            var product = new Product
+            {
+                Name = "Name",
+                Description = "Desc",
+                Price = 99.99m
+            };
+
+            return await _productService.AddProductAsync(product);
         }
     }
 }

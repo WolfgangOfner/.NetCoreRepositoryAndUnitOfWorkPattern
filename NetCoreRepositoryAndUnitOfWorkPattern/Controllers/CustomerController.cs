@@ -6,7 +6,7 @@ using NetCoreRepositoryAndUnitOfWorkPattern.Service.Services;
 
 namespace NetCoreRepositoryAndUnitOfWorkPattern.Controllers
 {
-    public class CustomerController
+    public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
 
@@ -24,17 +24,17 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Controllers
                 LastName = "Ofner"
             };
 
-            return await _customerService.AddCustomer(customer);
+            return await _customerService.AddCustomerAsync(customer);
         }
 
-        public ActionResult<List<Customer>> GetAllCustomers()
+        public async Task<ActionResult<List<Customer>>> GetAllCustomers()
         {
-            return _customerService.GetAllCustomer();
+            return await _customerService.GetAllCustomersAsync();
         }
 
         public async Task<ActionResult<Customer>> GetCustomerById()
         {
-            return await _customerService.GetCustomerById(1);
+            return await _customerService.GetCustomerByIdAsync(1);
         }
     }
 }

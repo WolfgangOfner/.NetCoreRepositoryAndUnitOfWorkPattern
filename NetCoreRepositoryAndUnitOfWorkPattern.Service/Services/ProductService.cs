@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using NetCoreRepositoryAndUnitOfWorkPattern.Data.Models;
 using NetCoreRepositoryAndUnitOfWorkPattern.Data.Repositories;
 
@@ -14,14 +13,14 @@ namespace NetCoreRepositoryAndUnitOfWorkPattern.Service.Services
             _productRepository = productRepository;
         }
 
-        public Product GetMySpecialProduct()
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            return _productRepository.MyProductSpecificMethod();
+            return await _productRepository.GetProductByIdAsync(id);
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> AddProductAsync(Product product)
         {
-            return await _productRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+            return await _productRepository.AddAsync(product);
         }
     }
 }
